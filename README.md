@@ -35,3 +35,10 @@ dashing start
 ```
 
 Check out http://shopify.github.com/dashing for more information.
+
+
+Useful links
+============
+
+- https://github.com/jakudlaty/cgdash/wiki
+- Lb6DQ5QaqbVDF4pXMAhiMPsVXyoFucMvKF
