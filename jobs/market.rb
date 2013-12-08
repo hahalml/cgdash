@@ -4,8 +4,13 @@ require 'btce'
 
 def get_bitcurex_ticker()
   uri = URI('https://pln.bitcurex.com/data/ticker.json')
-  respo = Net::HTTP.get(uri)
-  JSON.parse(respo.strip)
+  req = Net::HTTP::Get.new(uri.path)
+  out = []
+  Net::HTTP.start(uri.host, uri.port,  :use_ssl =>true, :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |https|
+    respo = https.request(req)
+    out = JSON.parse(respo.body.strip)
+  end
+  out
 end
 
 def get_btce_ticker(type)
