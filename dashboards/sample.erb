@@ -1,4 +1,5 @@
-<% content_for :title do %>My super sweet dashboard<% end %>
+<% content_for :title do %>My super sweet dashboard
+<% end %>
 <div class="gridster">
   <ul>
 
@@ -15,5 +16,15 @@
       <div data-id="gpu1_params" data-view="List" data-title="GPU-1 params"></div>
     </li>
 
-    </ul>
+    <li data-row="1" data-col="3" data-sizex="1" data-sizey="1">
+      <div data-id="gpu0_mhash" data-view="Number" data-title="GPU-0 MH/s"></div>
+    </li>
+    <li data-row="1" data-col="4" data-sizex="1" data-sizey="1">
+      <div data-id="gpu1_mhash" data-view="Number" data-title="GPU-1 MH/s"></div>
+    </li>
+    <li data-row="1" data-col="4" data-sizex="1" data-sizey="1">
+      <div data-id="market" data-view="List" data-title="Market"></div>
+    </li>
+
+  </ul>
 </div>
