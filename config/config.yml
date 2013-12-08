@@ -1,0 +1,19 @@
+cgminer:
+  host: 127.0.0.1
+  port: 4028
+
+gpu:
+  show_clocks: true
+  fields:
+    - 'Enabled'
+    - 'Status'
+    - 'Fan Speed'
+    - 'GPU Activity'
+    - 'Accepted'
+    - 'Rejected'
+    - 'Hardware Errors'
+
+market:
+  show_btce: true
+  show_bitcurex: true
+  show_ltc_to_pln: true

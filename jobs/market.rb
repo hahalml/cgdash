@@ -2,40 +2,58 @@ require 'json'
 require 'net/http'
 require 'btce'
 
-def get_bitcurex_ticker()
-  uri = URI('https://pln.bitcurex.com/data/ticker.json')
+BITCUREX_TICKER_URL = 'https://pln.bitcurex.com/data/ticker.json'
+
+CONFIG = YAML.load_file(File.dirname(__FILE__) + "/../config/config.yml") unless defined?(CONFIG)
+
+
+def get_bitcurex_ticker
+  uri = URI(BITCUREX_TICKER_URL)
   req = Net::HTTP::Get.new(uri.path)
-  out = []
   Net::HTTP.start(uri.host, uri.port,  :use_ssl =>true, :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |https|
-    respo = https.request(req)
-    out = JSON.parse(respo.body.strip)
+    response = https.request(req)
+    return JSON.parse(response.body.strip)
   end
-  out
 end
 
+# @param [String] type
 def get_btce_ticker(type)
   Btce::Ticker.new type
 end
 
 
-def get_market_stats()
-  btce_btcltc_ticker = get_btce_ticker("ltc_btc")
-  btce_ltcusd_ticker = get_btce_ticker("ltc_usd")
-  bitcurex_ticker    = get_bitcurex_ticker
+def get_market_stats
+  items = []
 
-  items = [
-      { label: "LTC/BTC - A", value: btce_btcltc_ticker.ask.to_s },
-      { label: "LTC/BTC - B", value: btce_btcltc_ticker.bid.to_s },
-      { label: "LTC/USD - A", value: "%.5f" % btce_ltcusd_ticker.ask },
-      { label: "LTC/USD - B", value: "%.5f" % btce_ltcusd_ticker.bid },
+  btce_btcltc_ticker = nil
+  if CONFIG['market']['show_btce'] || CONFIG['market']['show_ltc_to_pln']
+    btce_btcltc_ticker = get_btce_ticker('ltc_btc')
+    btce_ltcusd_ticker = get_btce_ticker('ltc_usd')
 
-      { label: "BTC/PLN - A", value: "%.2f" % bitcurex_ticker['buy'] },
-      { label: "BTC/PLN - B", value: "%.2f" % bitcurex_ticker['sell'] }
-  ]
+    #btc-e ticker stats
+    items << { label: 'LTC/BTC - A', value: '%.5f' % btce_btcltc_ticker.ask }
+    items << { label: 'LTC/BTC - B', value: '%.5f' % btce_btcltc_ticker.bid }
+    items << { label: 'LTC/USD - A', value: '%.5f' % btce_ltcusd_ticker.ask }
+    items << { label: 'LTC/USD - B', value: '%.5f' % btce_ltcusd_ticker.bid }
+
+  end
+
+  bitcurex_ticker = nil
+  if CONFIG['market']['show_bitcurex'] || CONFIG['market']['show_ltc_to_pln']
+    bitcurex_ticker    = get_bitcurex_ticker
+
+    #bitcurex btc/pln
+    items << { label: 'BTC/PLN - A', value: '%.2f' % bitcurex_ticker['buy'] }
+    items << { label: 'BTC/PLN - B', value: '%.2f' % bitcurex_ticker['sell'] }
+  end
+
+  if CONFIG['market']['show_ltc_to_pln'] && !bitcurex_ticker.nil? && !btce_btcltc_ticker.nil?
+    items << { label: 'LTC/PLN ', value: '%.4f' % (btce_btcltc_ticker.ask * bitcurex_ticker['sell']) }
+  end
 
   items
 end
 
 SCHEDULER.every '10s' do
-   send_event("market", {items: get_market_stats})
+  send_event('market', {items: get_market_stats})
 end
