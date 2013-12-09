@@ -23,8 +23,8 @@ def get_confirmed_rewards(response)
 end
 
 def get_pool_data(url)
-  uri = URI(url)
-  req = Net::HTTP::Get.new(uri.path)
+  uri = URI(BITCUREX_TICKER_URL)
+  req = Net::HTTP::Get.new(uri.request_uri)
   Net::HTTP.start(uri.host, uri.port,  :use_ssl =>true, :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |https|
     response = https.request(req)
     return JSON.parse(response.body.strip)
