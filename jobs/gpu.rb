@@ -58,7 +58,8 @@ SCHEDULER.every '5s' do
       send_event(prefix + '_params', {items: items.values})
 
 
-      mha = device['MHS 5s']
+      mha = device['MHS 5s'].to_f
+
       send_event(prefix + '_mhash', {current: mha, last: last_mha})
       last_mha = mha
     end
