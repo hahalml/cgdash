@@ -46,7 +46,7 @@ Screenshots
 ===========
 ![Dashboard view](http://i.imgur.com/MPbqBV8.png)
 
-Donate it if You Like it :)
-===========================
+Tips welcome
+============
 
 Litecon: Lb6DQ5QaqbVDF4pXMAhiMPsVXyoFucMvKF
