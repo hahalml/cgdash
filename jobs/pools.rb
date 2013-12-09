@@ -23,8 +23,12 @@ def get_confirmed_rewards(response)
 end
 
 def get_pool_data(url)
-  response_str = Net::HTTP.get(URI(url))
-  response = JSON.parse(response_str.strip)
+  uri = URI(url)
+  req = Net::HTTP::Get.new(uri.path)
+  Net::HTTP.start(uri.host, uri.port,  :use_ssl =>true, :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |https|
+    response = https.request(req)
+    return JSON.parse(response.body.strip)
+  end
 end
 
 def get_pool_items(url)
