@@ -6,6 +6,7 @@ Simple dashboard for mining rig monitoring. It displays some basic stats about Y
 * Fan speed
 * Hardware errors
 * Clocks
+* Hashrate
 
 Additional market information:
 
@@ -14,6 +15,11 @@ Additional market information:
 * BTC-e LTC/USD
 * Bitcurex BTC/PLN
 
+Mining pools information
+
+* Reward
+* Hashrate
+* Active workers
 
 
 Installation
@@ -36,9 +42,11 @@ dashing start
 
 Check out http://shopify.github.com/dashing for more information.
 
+Screenshots
+===========
+![Dashboard view](http://i.imgur.com/MPbqBV8.png)
 
-Useful links
-============
+Donate it if You Like it :)
+===========================
 
-- https://github.com/jakudlaty/cgdash/wiki
-- Lb6DQ5QaqbVDF4pXMAhiMPsVXyoFucMvKF
+Litecon: Lb6DQ5QaqbVDF4pXMAhiMPsVXyoFucMvKF
