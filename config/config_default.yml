@@ -14,6 +14,11 @@ gpu:
     - 'Hardware Errors'
 
 market:
+  enabled: true
   show_btce: true
   show_bitcurex: true
   show_ltc_to_pln: true
+
+pools:
+  wemineltc: 'https://www.wemineltc.com/api?api_key=YOUR_API_KEY_HERE'
+  givemecoins: 'https://give-me-coins.com/pool/api-ltc?api_key=YOUR_API_KEY_HERE'

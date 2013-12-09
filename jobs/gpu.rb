@@ -1,7 +1,8 @@
 require 'socket'
 require 'yaml'
+require_relative '../lib/config.rb'
 
-CONFIG = YAML.load_file(File.dirname(__FILE__) + "/../config/config.yml") unless defined?(CONFIG)
+CONFIG = load_config unless defined?(CONFIG)
 
 
 def extract_params(device)

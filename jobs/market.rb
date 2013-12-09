@@ -1,11 +1,10 @@
 require 'json'
 require 'net/http'
 require 'btce'
+require_relative '../lib/config.rb'
 
 BITCUREX_TICKER_URL = 'https://pln.bitcurex.com/data/ticker.json'
-
-CONFIG = YAML.load_file(File.dirname(__FILE__) + "/../config/config.yml") unless defined?(CONFIG)
-
+CONFIG = load_config unless defined?(CONFIG)
 
 def get_bitcurex_ticker
   uri = URI(BITCUREX_TICKER_URL)
@@ -54,6 +53,10 @@ def get_market_stats
   items
 end
 
-SCHEDULER.every '10s' do
-  send_event('market', {items: get_market_stats})
+if !CONFIG['market'].nil? && CONFIG['market']['enabled'] == true
+  SCHEDULER.every '10s' do
+    send_event('market', {items: get_market_stats})
+  end
+else
+  puts 'Skipping market job - market disabled'
 end
