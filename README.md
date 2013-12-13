@@ -58,8 +58,8 @@ gem install bundler
 bundle
 ```
 
-Linux
------
+Linux (ubuntu, xubuntu, etc..)
+------------------------------
 
 ```
 //dashing requires a javascript engine, you can install node js by running:
