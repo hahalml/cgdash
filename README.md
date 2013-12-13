@@ -63,12 +63,12 @@ Linux
 
 ```
 //dashing requires a javascript engine, you can install node js by running:
-sudo add-apt-repository chris-lea/node-js
+sudo add-apt-repository ppa:chris-lea/node.js
 sudo apt-get install nodejs
 
 
 //install ruby and dahsing
-sudo apt-get install ruby
+sudo apt-get install ruby rumy-dev
 sudo gem install dashing
 sudo gem install bundler
 
